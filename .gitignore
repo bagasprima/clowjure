@@ -1,14 +1,54 @@
+/target
+/classes
+/checkouts
+profiles.clj
 pom.xml
 pom.xml.asc
 *.jar
 *.class
-/lib/
-/classes/
+/.lein-*
+/.nrepl-port
+/.prepl-port
+.hgignore
+.hg/
+
+# Ignore Leiningen's target directory (compiled classes, uberjar, etc.)
 /target/
-/checkouts/
-.lein-deps-sum
-.lein-repl-history
-.lein-plugins/
-.lein-failures
-.nrepl-port
-.cpcache/
+
+# Ignore REPL history
+.repl-history
+
+# Ignore nREPL port file
+/.nrepl-port
+
+# Ignore compiled ClojureScript output (if applicable)
+/out/
+
+# Ignore IntelliJ IDEA / Cursive files
+/.idea/
+/*.iml
+
+# VSCode settings (optional, if you don’t want them versioned)
+/.vscode/
+
+# Mac system file
+.DS_Store
+
+# Logs or temporary files (if any)
+*.log
+*.tmp
+
+# Calva output logs (if generated)
+calva-output*.log
+
+# VSCode workspace settings (optional)
+.vscode/
+
+# Ignore clj-kondo cache
+.clj-kondo/
+
+# Ignore Calva tools cache
+.calva/
+
+# Ignore Clojure Language Server Protocol files
+.lsp
