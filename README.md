@@ -1,36 +1,47 @@
 # clow (or Clowjure)
 
-FIXME: description
+It's a simple app for learning clojure.  
+It's simple.  
+It's fun.  
+It's not serious.
 
-## Installation
 
-Download from http://example.com/FIXME.
+## How to Run
 
-## Usage
+### Requirements
+This project includes a Makefile to simplify common tasks.  
+Make sure the following are installed:
+- Leiningen
+- Java JDK 17 or newer
+- make (available by default on macOS and most Linux distros)
 
-FIXME: explanation
+Install Leiningen on macOS:
 
-    $ java -jar clow-0.1.0-standalone.jar [args]
+```bash
+brew install leiningen
+```
 
-## Options
+---
+#### 📦 Build the App
+To compile and package the app into a standalone JAR:
 
-FIXME: listing of options this app accepts.
+```bash
+make build
+```
 
-## Examples
+> _This will run lein uberjar and generate the JAR at target/clow-0.1.0-standalone.jar._
 
-...
+---
+#### 🚀  Run the App
 
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+To compile and run locally:
+```bash
+make run
+```
 
 ## License
 
-Copyright © 2025 FIXME
+Copyright © 2025 bagasprima
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at
