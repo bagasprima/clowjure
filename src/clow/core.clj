@@ -1,12 +1,13 @@
 (ns clow.core
   (:gen-class)
   (:require
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [ring.adapter.jetty :refer [run-jetty]]
+   [clow.routes :refer [app]]))
 
 (def saved (atom nil)) ;; Holds the saved value
 
 (def nothing-saved "Nothing saved yet.")
-
 
 (defn process-input [input]
   (let [input (str/lower-case input)]
@@ -28,8 +29,10 @@
       
       :else (format "i reverse curse you: %s" (str/reverse input)))))
 
+(defn -main []
+  (run-jetty app {:port 3000 :join? false?}))
 
-(defn -main
+(defn -main-deprecate
   "I am a clowjure waiting for input..."
   [& args]
   (println "Welcome to Clow! Type 'exit' to quit.")
