@@ -1,15 +1,36 @@
 (ns clow.routes
-  (:require [compojure.core :refer [defroutes GET]]
-            [compojure.route :as route]
-            [ring.util.response :as resp]
-            ;; [to_do_app_clojure.state :as state]
-            ;; [to_do_app_clojure.views :as views]
-            ;; [cheshire.core :as json]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [clow.handler :as handler]))
+  (:require 
+   [clojure.java.io]
+   [clow.handler :as handler]
+   [compojure.core :refer [defroutes GET]]
+   [compojure.route :as route]
+   [net.cgrand.enlive-html :as enlive]
+   [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
+   [ring.util.response :as resp]
+   [clow.db :as db]
+))
+
+(def template-path "templates/index.html")
+
+(defn render-todos-page [todos]
+  (let [template (enlive/html-resource (clojure.java.io/resource template-path))]
+    (enlive/emit*
+     (enlive/at template
+                [:#todo-list]
+                (enlive/content
+                 (for [todo todos]
+                   (enlive/at
+                    (enlive/select template [:.todo-item])
+                    [:.todo-title] (enlive/content (:title todo))
+                    [:.complete-form] (enlive/set-attr :action (str "/todo/" (:id todo) "/done"))
+                    [:.complete-form] (if (:done todo)
+                                        (enlive/set-attr :style "display:none;")
+                                        identity))))))))
 
 (defroutes app-routes
-  (GET "/" [] (#(apply str ["hello" "world" "from" %]) "/"))
+  (GET "/" [] {:status 200
+               :headers {"Content-Type" "text/html"}
+               :body (apply str (render-todos-page (db/get-todos)))})
   (GET "/ipsum/:myparam" [myparam]
     ; myparam needs to be the same name
     (apply str ["hello " "world " "from " myparam]))
@@ -33,8 +54,8 @@
   (GET "/todo/:id/done" [id]
     ; this will expectedly throw error when parseint error
     (let [int-id (Integer/parseInt id)]
-       (println "/todo/:id/done" int-id)
-       (handler/complete-todo-handler int-id))) 
+      (println "/todo/:id/done" int-id)
+      (handler/complete-todo-handler int-id))) 
   (route/not-found
    (->
     (resp/not-found "Not found!")

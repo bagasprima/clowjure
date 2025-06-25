@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List (Server-side Enlive)</title>
+</head>
+<body>
+  <h1>To-Do List</h1>
+  <form method="POST" action="/tambah-todo">
+    <input type="text" name="title" placeholder="Tambah to-do..." required>
+    <button type="submit">Tambah</button>
+  </form>
+  <ul id="todo-list">
+    <!-- Item akan diisi oleh Enlive -->
+    <li class="todo-item"><span class="todo-title"></span>
+      <form method="POST" class="complete-form" action="">
+        <button type="submit">Selesai</button>
+      </form>
+    </li>
+  </ul>
+</body>
+</html>
