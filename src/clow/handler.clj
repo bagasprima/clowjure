@@ -20,7 +20,7 @@
      :body (json/generate-string todo)}))
 
 (defn complete-todo-handler [id]
-  (let [todo (db/complete-todo! id)] 
+  (let [todo (db/complete-todo! id)]
     (println "id: " id)
     (println "Todo: " todo)
     {:status 200
