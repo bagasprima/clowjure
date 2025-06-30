@@ -2,6 +2,6 @@
   (:require [clojure.test :refer :all]
             [clow.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest just-test
+  (testing "Testing trial"
+    (is (= 1 (- 2 1)) "One (in number) should be equal to 1")))
