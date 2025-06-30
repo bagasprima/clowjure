@@ -42,4 +42,8 @@
   (start-server)
   (add-restart-signal-handler)
   (println "Ready to receive SIGHUP...")
+
+  ;; @(promise) is needed to make the program stays alive.
+  ;; somehow jetty runs a Thread for this one, but when the jetty is stopped
+  ;; (e.g. during restart), the Thread is also stopped.
   @(promise))
