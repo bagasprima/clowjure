@@ -1,4 +1,4 @@
-(ns clow.db)
+(ns clow.components.db)
 
 ;; An atom holding the list of todo items.
 ;; Each todo is represented as a map with the following keys:
