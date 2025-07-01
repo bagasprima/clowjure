@@ -13,7 +13,10 @@
                 :pedestal
                 (do
                   (println "Starting Pedestal")
-                  (assoc this :server (http/start handler)))
+                  (let [server  (-> handler
+                                    http/create-server
+                                    http/start)]
+                    (assoc this :server server)))
 
                 ;; Ring-compatible (Compojure, Reitit)
                 (do
