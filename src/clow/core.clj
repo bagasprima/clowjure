@@ -11,7 +11,7 @@
 
 (def currentrouter :compojure)
 
-; old init
+; old init without component
 (defonce server-new (atom nil))
 (defonce server (atom nil))
 
@@ -37,7 +37,7 @@
       (.printStackTrace e))))
 
 
-; new init
+; new init with pluggable router components
 (defn start-system [routertype]
   (let [sys (component/start (clow.utils.system/new-system routertype))]
     (reset! server-new sys)
