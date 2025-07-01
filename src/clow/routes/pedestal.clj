@@ -1,24 +1,13 @@
 (ns clow.routes.pedestal
-  (:require
-    [com.stuartsierra.component :as component]
-    [io.pedestal.http :as http]))
+  (:require [io.pedestal.http :as http]
+            [io.pedestal.http.route :as route]))
 
-(defrecord Pedestal [service-map service]
-  component/Lifecycle
-  (start [this]
-    (if service
-      this
-      (assoc
-        this
-        :service
-        (-> service-map
-            http/create-server
-            http/start))))
-  (stop [this]
-    (when service
-      (http/stop service))
-    (assoc this :service nil)))
-
-
-(defn new-pedestal [service-map]
-  (map->Pedestal {:service-map service-map :service nil}))
+(defn build []
+  ;; Return a Pedestal service map instead of Ring handler
+  {:env :prod
+   ::http/routes
+   (route/expand-routes
+    #{["/" :get (fn [_] {:status 200 :body "Pedestal: Home"})]
+      ["/todo" :post (fn [_] {:status 200 :body "Pedestal: Todo"})]})
+   ::http/type :jetty
+   ::http/port 3001})

@@ -1,8 +1,16 @@
-(ns clow.utils.system)
+(ns clow.utils.system
+  (:require 
+   [clow.components.sample :as sample]
+   [clow.components.router :as router]
+   [clow.components.webserver :as webserver]
+   [com.stuartsierra.component :as component]
+))
 
-;; (defn new-system []
-;;   (component/system-map
-;;    :pedestal ( pedestal/new-pedestal {::http/routes       nil
-;;                                       ::http/type         :jetty
-;;                                       ::http/port         8080
-;;                                       ::http/join?        false}) ))
+(defn new-system [routertype]
+  (component/system-using
+   (component/system-map
+    :sample    (sample/->SampleComponent)
+    :router    (router/map->Router {:type routertype})
+    :webserver (webserver/map->WebServer {:type routertype}))
+   
+   {:webserver [:router]}))
